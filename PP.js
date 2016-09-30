@@ -4,22 +4,22 @@ if(window.location.hostname != "pubpeer.com" && pageDOIs.length > 0){
 	var storedDOIs=localStorage.getItem("storedDOIs");
 	var dotcom = "devkey=PubMedChrome";
 	var IDsURL = "http://api.pubpeer.com/v2/pubposts?filter=doi&"+dotcom;
-		if(!storedDOIs || storedDOIs.length < 10){
-			var idRequest = new XMLHttpRequest();
-			idRequest.onload = setAllDOIs;
-			idRequest.open("get", IDsURL, false);
-			idRequest.send();
-		}
+	if(!storedDOIs || storedDOIs.length < 10){
+		var idRequest = new XMLHttpRequest();
+		idRequest.onload = setAllDOIs;
+		idRequest.open("get", IDsURL, false);
+		idRequest.send();
+	}
 	var LastIDdownload=localStorage.getItem("LastIDdownload");
 	if(!LastIDdownload){
 		LastIDdownload = Date.now();
 	}
-		if(((Date.now() - LastIDdownload)/3600000) > 168){
-			var idRequest = new XMLHttpRequest();
-			idRequest.onload = setAllDOIs;
-			idRequest.open("get", IDsURL, false);
-			idRequest.send();
-		}
+	if(((Date.now() - LastIDdownload)/3600000) > 168){
+		var idRequest = new XMLHttpRequest();
+		idRequest.onload = setAllDOIs;
+		idRequest.open("get", IDsURL, false);
+		idRequest.send();
+	}
 
 	function setAllDOIs(){
 		var doiTemp = this.responseText;
@@ -83,17 +83,17 @@ if(window.location.hostname != "pubpeer.com" && pageDOIs.length > 0){
 			});
 		}
 		var elementsWithDois = aDoiElement.length
-			for(k=0; k<elementsWithDois; k++){	//try each element that contains a matched DOI
-				var pp_commClass = document.getElementsByClassName('pp_comm');
-				var elementsAdded = pp_commClass.length;
-				var anyAlreadyAdded = 0;
-				for(l=0; l == 0 || l<elementsAdded; l++){	//check if an existing tag is nested below the element
-					var alreadyAdded = $.contains(aDoiElement[k].element, pp_commClass[l]);
-					if(alreadyAdded == true){
-						anyAlreadyAdded += 1
-					}
-					
+		for(k=0; k<elementsWithDois; k++){	//try each element that contains a matched DOI
+			var pp_commClass = document.getElementsByClassName('pp_comm');
+			var elementsAdded = pp_commClass.length;
+			var anyAlreadyAdded = 0;
+			for(l=0; l == 0 || l<elementsAdded; l++){	//check if an existing tag is nested below the element
+				var alreadyAdded = $.contains(aDoiElement[k].element, pp_commClass[l]);
+				if(alreadyAdded == true){
+					anyAlreadyAdded += 1
 				}
+				
+			}
 			if(anyAlreadyAdded < 1){
 				$(aDoiElement[k].element).append(
 					$("<p>", { class: "pp_comm" })
