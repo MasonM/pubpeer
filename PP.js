@@ -13,7 +13,7 @@ if(window.location.hostname != "pubpeer.com" && pageDOIs.length > 0){
 			|| !LastIDdownload
 			|| ((Date.now() - LastIDdownload) > (168 * 60 * 60 * 1000))
 		) {
-			let IDsURL = "http://api.pubpeer.com/v2/pubposts?filter=doi&"+dotcom;
+			let IDsURL = "https://api.pubpeer.com/v2/pubposts?filter=doi&"+dotcom;
 			let idRequest = new XMLHttpRequest();
 			idRequest.onload = function () {
 				localStorage.setItem("storedDOIs", this.responseText);
@@ -28,7 +28,7 @@ if(window.location.hostname != "pubpeer.com" && pageDOIs.length > 0){
 	}).then(function(storedDOIs) {
 		let allDOIs = $.parseJSON(storedDOIs);
 		let matchedPageDOIs = new Array();
-		let address = "http://api.pubpeer.com/v2/publications/"
+		let address = "https://api.pubpeer.com/v2/publications/"
 		for(let i=0; i<pageDOIs.length; i++){
 			if(allDOIs.dois.indexOf(pageDOIs[i]) != -1){
 				matchedPageDOIs.push(pageDOIs[i]);
